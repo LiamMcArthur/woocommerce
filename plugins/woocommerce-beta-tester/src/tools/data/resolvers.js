@@ -17,6 +17,7 @@ import {
 import { UPDATE_BLOCK_TEMPLATE_LOGGING_THRESHOLD_ACTION_NAME } from '../commands/update-block-template-logging-threshold';
 import { UPDATE_COMING_SOON_MODE_ACTION_NAME } from '../commands/set-coming-soon-mode';
 import { TRIGGER_UPDATE_CALLBACKS_ACTION_NAME } from '../commands/trigger-update-callbacks';
+import { FAKE_WOO_PAYMENTS_ACTION_NAME } from '../commands/fake-woo-payments';
 
 export function* getCronJobs() {
 	const path = `${ API_NAMESPACE }/tools/get-cron-list/v1`;
@@ -112,6 +113,20 @@ export function* getComingSoonMode() {
 		} );
 		yield updateCommandParams( UPDATE_COMING_SOON_MODE_ACTION_NAME, {
 			mode: mode || 'disabled',
+		} );
+	} catch ( error ) {
+		throw new Error( error );
+	}
+}
+
+export function* getIsFakeWooPaymentsEnabled() {
+	try {
+		const response = yield apiFetch( {
+			path: API_NAMESPACE + '/tools/fake-wcpay-completion/v1',
+			method: 'GET',
+		} );
+		yield updateCommandParams( FAKE_WOO_PAYMENTS_ACTION_NAME, {
+			enabled: response.enabled || 'no',
 		} );
 	} catch ( error ) {
 		throw new Error( error );

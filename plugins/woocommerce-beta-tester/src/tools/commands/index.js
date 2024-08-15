@@ -15,6 +15,10 @@ import {
 	SetComingSoonMode,
 	UPDATE_COMING_SOON_MODE_ACTION_NAME,
 } from './set-coming-soon-mode';
+import {
+	FakeWooPayments,
+	FAKE_WOO_PAYMENTS_ACTION_NAME,
+} from './fake-woo-payments';
 
 export default [
 	{
@@ -86,5 +90,10 @@ export default [
 		command: 'Force coming soon page to show',
 		description: <SetComingSoonMode />,
 		action: UPDATE_COMING_SOON_MODE_ACTION_NAME,
+	},
+	{
+		command: 'Toggle Fake WooPayments Completion Status',
+		description: <FakeWooPayments />,
+		action: FAKE_WOO_PAYMENTS_ACTION_NAME,
 	},
 ];
